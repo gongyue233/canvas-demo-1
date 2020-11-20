@@ -17,15 +17,31 @@
         canvas.width = document.documentElement.clientWidth
         canvas.height = document.documentElement.clientHeight//canvas的大小就是文档的大小
         //document.body.clientHeight是指body的高度，但是body的高度是由内容确定的，改成文档高度
+        //不是 canvas.style.width，因为这个style是css的属性
         let ctx = canvas.getContext('2d');
+
         let painting=false
         ctx.fillStyle = "red";
+        
+        ctx.fillStyle="black";
+        ctx.strokeStyle='none'//毛边
+        var isTouchDevice = 'ontouchstart' in document.documentElement;
+        console.log(isTouchDevice)//这两句是检查是否是触屏设备
+        if (isTouchDevice){
+            canvas.ontouchmove =(e)=>{
+                console.log(e.touches[0].clientX,e.touches[0].clientY)
+                ctx.beginPath();
+                ctx.arc(e.touches[0].clientX, e.touches[0].clientY,10,0,2*Math.PI);
+                ctx.stroke();
+                ctx.fill();
+            }
+        }else{
+            canvas.onmouseup=()=>{
+            painting=false
+        }
         canvas.onmousedown=()=>{
             painting=true
         }
-        ctx.fillStyle="black";
-        ctx.strokeStyle='none'//毛边
-
         
         canvas.onmousemove = (e)=>{
             if (painting===true){
@@ -39,9 +55,10 @@
 
             
         }
-        canvas.onmouseup=()=>{
-            painting=false
         }
+
+        
+       
         
         
       
