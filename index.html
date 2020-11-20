@@ -5,8 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="x-UA-Compatible" content="ie=edge">
     <title>画板</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div id="canvas"></div>
+    <script>
+        canvas.onclick = (e) =>{
+            console.log(e.clientX)
+            console.log(e.clientY)//通过log得到鼠标的位置
+            let div =document.createElement('div')
+            div.style.position='absolute'
+            div.style.left = e.clientX + 'px'
+            div.style.top = e.clientY + 'px'
+            div.style.border = '1px solid red'
+            div.style.width = '6px'
+            div.style.height = '6px'
+            div.style.marginLeft = '-3px'
+            div.style.marginTop = '-3px'//使小方块能出现在鼠标的中间
+            div.style.borderRadius='50%'//变成圆形
+            div.style.background='black'
+            canvas.appendChild(div) //canvas添加一个child——div
+
+        }
+    </script>
 </body>
 </html>
