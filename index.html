@@ -8,25 +8,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="canvas"></div>
+    <canvas id="canvas" width="100" height="100"></canvas>
     <script>
-        canvas.onclick = (e) =>{
-            console.log(e.clientX)
-            console.log(e.clientY)//通过log得到鼠标的位置
-            let div =document.createElement('div')
-            div.style.position='absolute'
-            div.style.left = e.clientX + 'px'
-            div.style.top = e.clientY + 'px'
-            div.style.border = '1px solid red'
-            div.style.width = '6px'
-            div.style.height = '6px'
-            div.style.marginLeft = '-3px'
-            div.style.marginTop = '-3px'//使小方块能出现在鼠标的中间
-            div.style.borderRadius='50%'//变成圆形
-            div.style.background='black'
-            canvas.appendChild(div) //canvas添加一个child——div
-
+        //canvas划线
+        //canvas是需要在一开始就确定高宽的，如果在css内设置会直接拉伸
+        //为了确定canvas的大小，需要 获取屏幕大小（JS）
+        let canvas = document.getElementById('canvas');//捕捉到canvas的东西
+        canvas.width = document.documentElement.clientWidth
+        canvas.height = document.documentElement.clientHeight//canvas的大小就是文档的大小
+        //document.body.clientHeight是指body的高度，但是body的高度是由内容确定的，改成文档高度
+        let ctx = canvas.getContext('2d');
+        let painting=false
+        ctx.fillStyle = "red";
+        canvas.onmousedown=()=>{
+            painting=true
         }
+        ctx.fillStyle="black";
+        ctx.strokeStyle='none'//毛边
+
+        
+        canvas.onmousemove = (e)=>{
+            if (painting===true){
+                ctx.beginPath();
+                ctx.arc(e.clientX, e.clientY,10,0,2*Math.PI);
+                ctx.stroke();
+                ctx.fill();
+            }else{
+                console.log('什么都不干')
+            }
+
+            
+        }
+        canvas.onmouseup=()=>{
+            painting=false
+        }
+        
+        
+      
     </script>
 </body>
 </html>
