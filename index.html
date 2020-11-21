@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="x-UA-Compatible" content="ie=edge">
     <title>画板</title>
     <link rel="stylesheet" href="style.css">
@@ -26,7 +26,7 @@
         ctx.fillStyle="black";//填充样式
         ctx.strokeStyle='none'//描边样式
         ctx.lineWidth=2;//线宽
-        ctx.linecap="round"//拐角圆润
+        ctx.lineCap="round"//拐角圆润
         var isTouchDevice = 'ontouchstart' in document.documentElement;
         console.log(isTouchDevice)//这两句是检查是否是触屏设备
         let last;//声明了变量last
@@ -65,13 +65,11 @@
             if (painting===true){
                 drawLine(last[0],last[1],e.clientX,e.clientY);
                 last=[e.clientX,e.clientY]//更新了last
-            }else{
-                console.log('什么都不干')
             }
 
             
         }
-        canvas.onmouseup=()=>{
+        canvas.onmouseup=(e)=>{
             painting=false
         }
         }
